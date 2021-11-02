@@ -1,0 +1,43 @@
+html {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  z-index: 99999;
+}
+
+header nav .navbar-brand-center {
+  position: absolute;
+  top: -5.5em;
+  width: 10em;
+  height: 10em;
+  border: 5px solid #212529;
+  border-radius: 50%;
+  background: white;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+header nav .navbar-brand-center .brand-text {
+  font-size: 3em;
+}
+
+header nav .navbar-brand-center:hover {
+  -webkit-transform: scale(1.2, 1.2) rotate(180deg);
+          transform: scale(1.2, 1.2) rotate(180deg);
+}
+
+main {
+  overflow-y: auto;
+}
+
+main section {
+  height: auto;
+}
+/*# sourceMappingURL=main.css.map */

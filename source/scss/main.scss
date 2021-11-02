@@ -1,0 +1,42 @@
+html {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    nav {
+        .navbar-brand-center {
+            position: absolute;
+            top: -5.5em;
+            width: 10em;
+            height: 10em;
+            border: 5px solid rgba(33, 37, 41, 1);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 1);
+            transition: all 0.2s;
+
+            .brand-text {
+                font-size: 3em;
+            }
+
+            &:hover {
+                transform: scale(1.2, 1.2) rotate(180deg);
+            }
+        }
+    }
+
+    z-index: 99999;
+}
+
+main {
+    overflow-y: auto;
+
+    section {
+        height: auto;
+    }
+}
