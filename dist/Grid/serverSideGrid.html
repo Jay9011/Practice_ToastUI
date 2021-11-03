@@ -70,17 +70,23 @@
     <main class="d-flex flex-fill flex-column bg-dark">
         <section class="container-xl flex-fill bg-white pt-5">
             <article class="row">
-                <div class="col-12">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text text-danger">
-                            <i class="fab fa-youtube"></i>
-                            &nbsp;
-                            <span class="fw-bold">검색</span>
-                        </span>
-                        <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력"
-                            aria-label="검색어 입력" aria-describedby="basic-addon1">
+                <form class="col-12" onsubmit="return false;">
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text text-danger">
+                                    <i class="fab fa-youtube"></i>
+                                </span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력"
+                                    aria-label="검색어 입력" aria-describedby="basic-addon1">
+                                <button class="btn btn-danger">
+                                    <i class="fas fa-search"></i>&nbsp;
+                                    <span class="fw-bold">검색</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="col-12">
                     <div id="grid"></div>
                 </div>
