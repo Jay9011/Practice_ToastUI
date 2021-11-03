@@ -11,9 +11,16 @@
     <!-- bootstrap -->
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- hammer.js -->
+    <script src="/dist/js/hammer.js"></script>
     <!-- tui-grid -->
     <script src="/node_modules/tui-grid/dist/tui-grid.min.js"></script>
     <link rel="stylesheet" href="/node_modules/tui-grid/dist/tui-grid.min.css">
+    <!-- <script src="/node_modules/tui-pagination/dist/tui-pagination.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/tui-pagination/dist/tui-pagination.min.css"> -->
+    <!-- sweetalert2 -->
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
     <!-- fontawesome -->
     <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <!-- custom css -->
@@ -64,46 +71,314 @@
         <section class="container-xl flex-fill bg-white pt-5">
             <article class="row">
                 <div class="col-12">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text text-danger">
+                            <i class="fab fa-youtube"></i>
+                            &nbsp;
+                            <span class="fw-bold">검색</span>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력"
+                            aria-label="검색어 입력" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col-12">
                     <div id="grid"></div>
+                </div>
+                <div class="col-12 d-flex justify-content-between p-3">
+                    <div>
+                        <button id="prevBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
+                            data-token="">
+                            <i class="far fa-caret-square-left"></i>
+                            <span>이전 목록</span>
+                        </button>
+                    </div>
+                    <div>
+                        <button id="nextBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
+                            data-token="">
+                            <span>다음 목록</span>
+                            <i class="far fa-caret-square-right"></i>
+                        </button>
+                    </div>
                 </div>
             </article>
 
         </section>
         <script type="text/javascript">
+            let Grid = tui.Grid;
+            Grid.applyTheme('clean');
+            let youtubeData = [];
+            let testData = [{
+                id: '-iZlNnTGotk',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/-iZlNnTGotk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDrN3cfIUkE7xCM09ogpbeLI0Cghg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '콜백함수가 뭔지 한국어로 쉽게 설명하는 영상',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-27T11:23:57Z'.replace('T', ' ').replace('Z', ''),
+            }, {
+                id: 'VJag_H2Cosc',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/VJag_H2Cosc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkxCqSfLfWH8FXWH7MNrGi0BJQzw',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '초보 개발자를 위한 웹 신기술 WebAssembly 설명',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-20T11:23:57Z'.replace('T', ' ').replace('Z', ''),
+            }, {
+                id: 'o0spBNs0zRk',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/o0spBNs0zRk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAuQNMTwvi7JoqQ-3dwXnUUvZL2Rg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '자바스크립트 숨겨진 기능 Shadow DOM 활용법',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-12T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, {
+                id: 'Y8bH6lGZD1I',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/Y8bH6lGZD1I/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCKElyF58Wl34p2YSgWphCkCphcZw',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '구글링 잘하는 법 7개 (네이버쓰셈 ㅅㄱ)',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-09-26T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, {
+                id: 'iZjfnoF784k',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/iZjfnoF784k/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBV4TI856nTsI_84t8bRztxm7ocOg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: 'TypeScript로 웹개발하려면 HTML 조지는법을 알아야',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-08-11T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, ];
+            // id: data.id.videoId,
+            // thumbnail: {
+            //     url: data.snippet.thumbnails.default.url,
+            //     Width: data.snippet.thumbnails.default.width,
+            //     Height: data.snippet.thumbnails.default.height
+            // },
+            // title: data.snippet.title,
+            // channelId: data.snippet.channelTitle,
+            // publishTime: data.snippet.publishTime.replace('T', ' ').replace('Z',
+            //     '')
+            let pageToken = '';
             const dataSource = {
                 api: {
                     readData: {
-                        url: 'localhost/Employee/Emp_visit_list'
+                        url: 'https://www.googleapis.com/youtube/v3/search',
+                        method: 'GET',
+                        initParams: {
+                            key: 'AIzaSyDzsirV9VPGiGCvlRBGLuq0qBoxojLLHuM',
+                            part: 'id,snippet',
+                            regionCode: 'KR',
+                            pageToken: pageToken,
+                            order: 'viewCount',
+                            q: document.querySelector('#searchInput').value, // 검색어
+                            type: 'video'
+                        }
                     }
+                },
+                header: {}
+            }
+            class CustomImageRenderer {
+                constructor(props) {
+                    const el = document.createElement('img');
+
+                    el.src = props.value.url;
+                    el.width = 120;
+                    el.height = 90;
+                    el.style.margin = '0 1em';
+
+
+                    this.el = el;
+                    this.render(props);
+                }
+                getElement() {
+                    return this.el;
+                }
+                render(props) {
+
                 }
             }
-            let grid = tui.Grid({
+            class CustomTextRenderer {
+                constructor(props) {
+                    const options = props.columnInfo.renderer.options;
+
+                    this.render(props);
+                }
+                render(props) {}
+            }
+            class CustomLinkBtnRenderer {
+                constructor(props) {
+                    const el = document.createElement('button');
+                    const options = props.columnInfo.renderer.options;
+
+                    el.classList.add('btn', 'btn-danger', 'btn-sm', 'moveLinkBtn');
+                    el.innerHTML = '<i class="fas fa-external-link-alt"></i> 바로가기';
+                    el.dataset.id = props.value;
+
+                    this.el = el;
+                    this.render(props);
+                }
+                getElement() {
+                    return this.el;
+                }
+                render(props) {
+
+                }
+            }
+            let grid = new Grid({
                 el: document.querySelector('#grid'),
                 columns: [{
-                        header: '승인여부',
-                        name: 'id'
+                        header: '#',
+                        name: 'id',
+                        width: 120,
+                        align: 'center',
+                        renderer: {
+                            type: CustomLinkBtnRenderer,
+                            options: {
+
+                            }
+                        }
                     },
                     {
-                        header: '내방객 이름',
-                        name: 'Name'
+                        header: ' ',
+                        name: 'thumbnail',
+                        width: 146,
+                        align: 'center',
+                        renderer: {
+                            type: CustomImageRenderer,
+                            options: {
+
+                            }
+                        }
                     },
                     {
-                        header: '내방객 휴대번호',
-                        name: 'Mobile'
+                        header: '제목',
+                        name: 'title',
+                        minWidth: 200,
+                        resizable: true,
                     },
                     {
-                        header: '방문 기간',
-                        name: 'Date'
+                        header: '체널명',
+                        name: 'channelId',
+                        width: 'auto',
+                        align: 'center',
+                        resizable: true,
                     },
                     {
-                        header: '접견인 이름',
-                        name: 'ITViewName'
-                    },
-                    {
-                        header: '접견인 회사',
-                        name: 'ITViewCompany'
-                    },
-                ]
+                        header: '업로드 시간',
+                        name: 'publishTime',
+                        width: 140,
+                        align: 'center',
+                        resizable: true,
+                    }
+                ],
+                // data: dataSource,
+                data: testData,
+                bodyHeight: 'auto',
+                minRowHeight: 90,
+            });
+
+            grid.on('beforeRequest', function (e) {
+                console.log('beforeRequest');
+            });
+            grid.on('response', function (e) {
+                console.log('Always');
+                let responseJson = JSON.parse(e.xhr.response);
+                if (responseJson.error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '<strong>Error <u>' + responseJson.error.code + '</u></strong>',
+                        html: responseJson.error.message,
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        confirmButtonText: 'Close',
+                        confirmButtonAriaLabel: 'close this window!',
+                    });
+                    return;
+                }
+                youtubeData = [];
+                let prevBtnEl = document.querySelector('#prevBtn');
+                let nextBtnEl = document.querySelector('#nextBtn');
+                if (responseJson['prevPageToken']) {
+                    prevBtnEl.classList.remove('d-none');
+                    prevBtnEl.dataset.token = responseJson['prevPageToken'];
+                } else {
+                    prevBtnEl.classList.add('d-none');
+                    prevBtnEl.dataset.token = '';
+                }
+                if (responseJson['nextPageToken']) {
+                    nextBtnEl.classList.remove('d-none');
+                    nextBtnEl.dataset.token = responseJson['nextPageToken'];
+                } else {
+                    nextBtnEl.classList.add('d-none');
+                    nextBtnEl.dataset.token = '';
+                }
+                if (responseJson['items'] && responseJson['items'] instanceof Array) {
+                    responseJson['items'].forEach(function (data) {
+                        youtubeData.push({
+                            id: data.id.videoId,
+                            thumbnail: {
+                                url: data.snippet.thumbnails.default.url,
+                                Width: data.snippet.thumbnails.default.width,
+                                Height: data.snippet.thumbnails.default.height
+                            },
+                            title: data.snippet.title,
+                            channelId: data.snippet.channelTitle,
+                            publishTime: data.snippet.publishTime.replace('T', ' ').replace('Z',
+                                '')
+                        });
+                    });
+                }
+                grid.resetData(youtubeData);
+                grid.refreshLayout();
+            });
+            grid.on('successResponse', function (e) {
+                console.log('SuccessResponse');
+            });
+            grid.on('failResponse', function (e) {
+                console.log('FailResponse');
+            });
+            grid.on('errorResponse', function (e) {
+                console.log('ErrorResponse');
+            });
+            grid.on('click', function (e) {
+                if (typeof (e.rowKey) === 'number') {
+                    console.log(testData[e.rowKey]);
+                    moreInfoBox.show();
+                }
+            });
+
+            document.addEventListener('click', function (e) {
+                let el, type;
+                if (e.target.closest('.moveLinkBtn')) {
+                    el = e.target.closest('.moveLinkBtn');
+                    type = 'moveLinkBtn';
+                }
+                switch (type) {
+                    case 'moveLinkBtn':
+                        if (el.dataset['id']) {
+                            window.open('https://youtu.be/' + el.dataset['id']);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
             });
         </script>
     </main>
@@ -129,5 +404,52 @@
         </section>
     </footer>
 </body>
+<!-- offcanvas 사용 -->
+<div class="offcanvas offcanvas-bottom rounded-top" tabindex="-1" id="moreInfoBox" aria-labelledby="상세 정보 보기">
+    <div class="offcanvas-header row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="mobile-touch-guidebar">
+
+            </div>
+        </div>
+    </div>
+    <div class="offcanvas-body">
+
+    </div>
+</div>
+<script type="text/javascript">
+    let offcanvas = document.querySelector('#moreInfoBox');
+    let offcanvasOffset = 0;
+    let offcanvasBeforeOffset = 0;
+    let offcanvasHideTrigger = false;
+    let moreInfoBox = new bootstrap.Offcanvas(offcanvas);
+    let moreInfoHammer = new Hammer(document.querySelector('#moreInfoBox .offcanvas-header'));
+    moreInfoHammer.get('pan').set({
+        direction: Hammer.DIRECTION_DOWN,
+    });
+    moreInfoHammer.on('pan', function (e) {
+        if (!offcanvasHideTrigger) {
+            offcanvas.style.transition = 'none';
+
+            if (e.deltaY > 0) {
+                offcanvas.style.transform = `translateY(${e.distance}px)`;
+            }
+            if ((offcanvas.offsetHeight * 0.5) < e.distance) {
+                offcanvas.style.transform = null;
+                offcanvas.style.transition = null;
+                offcanvasHideTrigger = true;
+                moreInfoBox.hide();
+            }
+        }
+    });
+    moreInfoHammer.on('panend', function (e) {
+        offcanvas.style.transform = null;
+        offcanvas.style.transition = null;
+        offcanvasHideTrigger = false;
+    });
+    // moreInfoHammer2.on('pan', function (e) {
+    //     console.dir(e);
+    // });
+</script>
 
 </html>

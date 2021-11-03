@@ -40,4 +40,12 @@ main {
 main section {
   height: auto;
 }
+
+.mobile-touch-guidebar {
+  width: 200px;
+  height: 7px;
+  border: 3px solid #d2d2d2;
+  border-radius: 10px;
+  background-color: #cccccc;
+}
 /*# sourceMappingURL=main.css.map */
