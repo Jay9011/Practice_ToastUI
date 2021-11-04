@@ -25,6 +25,17 @@
     <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="/dist/css/main.min.css">
+    <!-- custom style -->
+    <style>
+        main {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        main::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column justify-content-between">
@@ -69,45 +80,53 @@
     </header>
     <main class="d-flex flex-fill flex-column bg-dark">
         <section class="container-xl flex-fill bg-white pt-5">
-            <article class="row">
-                <form class="col-12" onsubmit="return false;">
-                    <div class="row">
-                        <div class="col">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text text-danger">
-                                    <i class="fab fa-youtube"></i>
-                                </span>
-                                <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력"
-                                    aria-label="검색어 입력" aria-describedby="basic-addon1">
-                                <button class="btn btn-danger">
-                                    <i class="fas fa-search"></i>&nbsp;
-                                    <span class="fw-bold">검색</span>
-                                </button>
+            <article class="d-flex flex-column h-100">
+                <div class="row">
+                    <form class="col-12" onsubmit="return fnSearch()">
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-danger">
+                                        <i class="fab fa-youtube"></i>
+                                    </span>
+                                    <input type="text" id="searchInput" class="form-control" placeholder="검색어 입력"
+                                        aria-label="검색어 입력" aria-describedby="basic-addon1">
+                                    <button class="btn btn-danger">
+                                        <i class="fas fa-search"></i>&nbsp;
+                                        <span class="fw-bold">검색</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-                <div class="col-12">
-                    <div id="grid"></div>
+                    </form>
                 </div>
-                <div class="col-12 d-flex justify-content-between p-3">
-                    <div>
-                        <button id="prevBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
-                            data-token="">
-                            <i class="far fa-caret-square-left"></i>
-                            <span>이전 목록</span>
-                        </button>
+                <div class="row flex-fill">
+                    <div class="col-12">
+                        <div id="grid"></div>
                     </div>
-                    <div>
-                        <button id="nextBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
-                            data-token="">
-                            <span>다음 목록</span>
-                            <i class="far fa-caret-square-right"></i>
-                        </button>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between p-3">
+                        <div>
+                            <button id="prevBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
+                                data-token="">
+                                <i class="far fa-caret-square-left"></i>
+                                <span>이전 목록</span>
+                            </button>
+                        </div>
+                        <div>
+                            <div class="btn" style="visibility: hidden;">&nbsp;</div>
+                        </div>
+                        <div>
+                            <button id="nextBtn" class="btn btn-danger d-none" onclick="javascript:fnPaging(this)"
+                                data-token="">
+                                <span>다음 목록</span>
+                                <i class="far fa-caret-square-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </article>
-
         </section>
         <script type="text/javascript">
             let Grid = tui.Grid;
@@ -168,17 +187,62 @@
                 description: '콜백함수 정의와 설명입니다.',
                 channelId: '코딩애플',
                 publishTime: '2021-08-11T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, {
+                id: '-iZlNnTGotk',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/-iZlNnTGotk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDrN3cfIUkE7xCM09ogpbeLI0Cghg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '콜백함수가 뭔지 한국어로 쉽게 설명하는 영상',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-27T11:23:57Z'.replace('T', ' ').replace('Z', ''),
+            }, {
+                id: 'VJag_H2Cosc',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/VJag_H2Cosc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkxCqSfLfWH8FXWH7MNrGi0BJQzw',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '초보 개발자를 위한 웹 신기술 WebAssembly 설명',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-20T11:23:57Z'.replace('T', ' ').replace('Z', ''),
+            }, {
+                id: 'o0spBNs0zRk',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/o0spBNs0zRk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAuQNMTwvi7JoqQ-3dwXnUUvZL2Rg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '자바스크립트 숨겨진 기능 Shadow DOM 활용법',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-10-12T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, {
+                id: 'Y8bH6lGZD1I',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/Y8bH6lGZD1I/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCKElyF58Wl34p2YSgWphCkCphcZw',
+                    Width: 120,
+                    Height: 90
+                },
+                title: '구글링 잘하는 법 7개 (네이버쓰셈 ㅅㄱ)',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-09-26T11:23:57Z'.replace('T', ' ').replace('Z', '')
+            }, {
+                id: 'iZjfnoF784k',
+                thumbnail: {
+                    url: 'https://i.ytimg.com/vi/iZjfnoF784k/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBV4TI856nTsI_84t8bRztxm7ocOg',
+                    Width: 120,
+                    Height: 90
+                },
+                title: 'TypeScript로 웹개발하려면 HTML 조지는법을 알아야',
+                description: '콜백함수 정의와 설명입니다.',
+                channelId: '코딩애플',
+                publishTime: '2021-08-11T11:23:57Z'.replace('T', ' ').replace('Z', '')
             }, ];
-            // id: data.id.videoId,
-            // thumbnail: {
-            //     url: data.snippet.thumbnails.default.url,
-            //     Width: data.snippet.thumbnails.default.width,
-            //     Height: data.snippet.thumbnails.default.height
-            // },
-            // title: data.snippet.title,
-            // channelId: data.snippet.channelTitle,
-            // publishTime: data.snippet.publishTime.replace('T', ' ').replace('Z',
-            //     '')
             let pageToken = '';
             const dataSource = {
                 api: {
@@ -190,9 +254,10 @@
                             part: 'id,snippet',
                             regionCode: 'KR',
                             pageToken: pageToken,
-                            order: 'viewCount',
+                            order: 'relevance',
                             q: document.querySelector('#searchInput').value, // 검색어
-                            type: 'video'
+                            type: 'video',
+                            maxResults: 50
                         }
                     }
                 },
@@ -200,15 +265,13 @@
             }
             class CustomImageRenderer {
                 constructor(props) {
-                    const el = document.createElement('img');
+                    const imgEl = document.createElement('img');
+                    imgEl.src = props.value.url;
+                    imgEl.width = 120;
+                    imgEl.height = 90;
+                    imgEl.style.margin = '0 1em';
 
-                    el.src = props.value.url;
-                    el.width = 120;
-                    el.height = 90;
-                    el.style.margin = '0 1em';
-
-
-                    this.el = el;
+                    this.el = imgEl;
                     this.render(props);
                 }
                 getElement() {
@@ -218,22 +281,46 @@
 
                 }
             }
-            class CustomTextRenderer {
-                constructor(props) {
-                    const options = props.columnInfo.renderer.options;
-
-                    this.render(props);
-                }
-                render(props) {}
-            }
             class CustomLinkBtnRenderer {
                 constructor(props) {
-                    const el = document.createElement('button');
+                    const btnEl = document.createElement('button');
                     const options = props.columnInfo.renderer.options;
 
-                    el.classList.add('btn', 'btn-danger', 'btn-sm', 'moveLinkBtn');
-                    el.innerHTML = '<i class="fas fa-external-link-alt"></i> 바로가기';
-                    el.dataset.id = props.value;
+                    btnEl.classList.add('btn', 'btn-danger', 'btn-sm', 'moveLinkBtn');
+                    btnEl.innerHTML = '<i class="fas fa-external-link-alt"></i> 바로가기';
+                    btnEl.dataset.id = props.value;
+
+                    this.el = btnEl;
+                    this.render(props);
+                }
+                getElement() {
+                    return this.el;
+                }
+                render(props) {
+
+                }
+            }
+            class CustomImageAndLinkRenderer {
+                constructor(props) {
+                    const el = document.createElement('div');
+
+                    const imgBoxEl = document.createElement('div');
+                    const imgEl = document.createElement('img');
+                    imgEl.src = props.grid.store.data.rawData[props.rowKey].thumbnail.url;
+                    imgEl.width = 120;
+                    imgEl.height = 90;
+                    imgEl.style.margin = '0 1em';
+                    imgBoxEl.appendChild(imgEl);
+
+                    const btnBoxEl = document.createElement('div');
+                    const btnEl = document.createElement('button');
+                    btnEl.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'moveLinkBtn', 'my-1');
+                    btnEl.innerHTML = '<i class="fas fa-external-link-alt"></i> 바로가기';
+                    btnEl.dataset.id = props.grid.store.data.rawData[props.rowKey].id;
+                    btnBoxEl.appendChild(btnEl);
+
+                    el.appendChild(imgBoxEl);
+                    el.appendChild(btnBoxEl);
 
                     this.el = el;
                     this.render(props);
@@ -249,23 +336,11 @@
                 el: document.querySelector('#grid'),
                 columns: [{
                         header: '#',
-                        name: 'id',
-                        width: 120,
-                        align: 'center',
-                        renderer: {
-                            type: CustomLinkBtnRenderer,
-                            options: {
-
-                            }
-                        }
-                    },
-                    {
-                        header: ' ',
                         name: 'thumbnail',
                         width: 146,
                         align: 'center',
                         renderer: {
-                            type: CustomImageRenderer,
+                            type: CustomImageAndLinkRenderer,
                             options: {
 
                             }
@@ -276,6 +351,7 @@
                         name: 'title',
                         minWidth: 200,
                         resizable: true,
+                        whiteSpace: 'normal'
                     },
                     {
                         header: '체널명',
@@ -292,10 +368,10 @@
                         resizable: true,
                     }
                 ],
-                // data: dataSource,
-                data: testData,
-                bodyHeight: 'auto',
-                minRowHeight: 90,
+                data: dataSource,
+                // data: testData,
+                bodyHeight: 'fitToParent',
+                minRowHeight: 130,
             });
 
             grid.on('beforeRequest', function (e) {
@@ -346,7 +422,8 @@
                             title: data.snippet.title,
                             channelId: data.snippet.channelTitle,
                             publishTime: data.snippet.publishTime.replace('T', ' ').replace('Z',
-                                '')
+                                ''),
+                            description: data.snippet.description
                         });
                     });
                 }
@@ -364,7 +441,14 @@
             });
             grid.on('click', function (e) {
                 if (typeof (e.rowKey) === 'number') {
-                    console.log(testData[e.rowKey]);
+                    document.querySelector('#offcanvas-title').innerHTML = youtubeData[e.rowKey].title;
+                    document.querySelector('#offcanvas-description').innerHTML = youtubeData[e.rowKey]
+                        .description;
+                    document.querySelector('#offcanvas-channelName').innerHTML = youtubeData[e.rowKey]
+                        .channelId;
+                    document.querySelector('#offcanvas-publishTime').innerHTML = youtubeData[e.rowKey]
+                        .publishTime;
+
                     moreInfoBox.show();
                 }
             });
@@ -419,8 +503,25 @@
             </div>
         </div>
     </div>
-    <div class="offcanvas-body">
-
+    <div class="offcanvas-body small d-flex flex-column">
+        <div class="row justify-content-center flex-fill">
+            <div class="col-12 d-flex justify-content-center">
+                <span id="offcanvas-title" class="fs-5 fw-bold">제목 불러오는중...</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <span id="offcanvas-description" class="fs-6">설명 불러오는중...</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 d-flex justify-content-end">
+                <span id="offcanvas-channelName" class="">체널명 불러오는중...</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-7 col-lg-6 col-xl-5 d-flex justify-content-end">
+                <span id="offcanvas-publishTime" class="">1900-01-01 00:00:00</span>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -453,9 +554,35 @@
         offcanvas.style.transition = null;
         offcanvasHideTrigger = false;
     });
-    // moreInfoHammer2.on('pan', function (e) {
-    //     console.dir(e);
-    // });
+    offcanvas.addEventListener('hidden.bs.offcanvas', fnMoreInfoContentRefresh);
+
+    function fnSearch() {
+        pageToken = '';
+        grid.readData(1, {
+            pageToken: pageToken,
+            q: document.querySelector('#searchInput').value, // 검색어
+        });
+        return false;
+    }
+
+    function fnPaging(el) {
+        if (el.dataset['token']) {
+            pageToken = el.dataset['token'];
+        } else {
+            pageToken = '';
+        }
+        grid.readData(1, {
+            pageToken: pageToken,
+            q: document.querySelector('#searchInput').value, // 검색어
+        });
+    }
+
+    function fnMoreInfoContentRefresh() {
+        document.querySelector('#offcanvas-title').innerHTML = '제목 불러오는중...';
+        document.querySelector('#offcanvas-description').innerHTML = '설명 불러오는중...';
+        document.querySelector('#offcanvas-channelName').innerHTML = '체널명 불러오는중...';
+        document.querySelector('#offcanvas-publishTime').innerHTML = '1900-01-01 00:00:00';
+    }
 </script>
 
 </html>
