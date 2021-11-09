@@ -14,10 +14,10 @@
     <!-- hammer.js -->
     <script src="/dist/js/hammer.js"></script>
     <!-- tui-grid -->
-    <script src="/node_modules/tui-grid/dist/tui-grid.min.js"></script>
-    <link rel="stylesheet" href="/node_modules/tui-grid/dist/tui-grid.min.css">
     <script src="/node_modules/tui-pagination/dist/tui-pagination.min.js"></script>
     <link rel="stylesheet" href="/node_modules/tui-pagination/dist/tui-pagination.min.css">
+    <script src="/node_modules/tui-grid/dist/tui-grid.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/tui-grid/dist/tui-grid.min.css">
     <!-- sweetalert2 -->
     <script src="/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
@@ -25,6 +25,128 @@
     <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <!-- custom css -->
     <link rel="stylesheet" href="/dist/css/main.min.css">
+    <script type="text/javascript">
+        const data = [{
+                id: '100101',
+                name: '더미01',
+                company: '회사명 더미01',
+                phone: '01000000000'
+            },
+            {
+                id: '100102',
+                name: '더미02',
+                company: '회사명 더미02',
+                phone: '01000000000'
+            },
+            {
+                id: '100103',
+                name: '더미03',
+                company: '회사명 더미03',
+                phone: '01000000000'
+            },
+            {
+                id: '100104',
+                name: '더미04',
+                company: '회사명 더미04',
+                phone: '01000000000'
+            },
+            {
+                id: '100105',
+                name: '더미05',
+                company: '회사명 더미05',
+                phone: '01000000000'
+            },
+            {
+                id: '100106',
+                name: '더미06',
+                company: '회사명 더미06',
+                phone: '01000000000'
+            },
+            {
+                id: '100107',
+                name: '더미07',
+                company: '회사명 더미07',
+                phone: '01000000000'
+            },
+            {
+                id: '100108',
+                name: '더미08',
+                company: '회사명 더미08',
+                phone: '01000000000'
+            },
+            {
+                id: '100109',
+                name: '더미09',
+                company: '회사명 더미09',
+                phone: '01000000000'
+            },
+            {
+                id: '100110',
+                name: '더미10',
+                company: '회사명 더미10',
+                phone: '01000000000'
+            }, {
+                id: '100111',
+                name: '더미11',
+                company: '회사명 더미11',
+                phone: '01000000000'
+            },
+            {
+                id: '100112',
+                name: '더미12',
+                company: '회사명 더미12',
+                phone: '01000000000'
+            },
+            {
+                id: '100113',
+                name: '더미13',
+                company: '회사명 더미13',
+                phone: '01000000000'
+            },
+            {
+                id: '100114',
+                name: '더미14',
+                company: '회사명 더미14',
+                phone: '01000000000'
+            },
+            {
+                id: '100115',
+                name: '더미15',
+                company: '회사명 더미15',
+                phone: '01000000000'
+            },
+            {
+                id: '100116',
+                name: '더미16',
+                company: '회사명 더미16',
+                phone: '01000000000'
+            },
+            {
+                id: '100117',
+                name: '더미17',
+                company: '회사명 더미17',
+                phone: '01000000000'
+            },
+            {
+                id: '100118',
+                name: '더미18',
+                company: '회사명 더미18',
+                phone: '01000000000'
+            },
+            {
+                id: '100119',
+                name: '더미19',
+                company: '회사명 더미19',
+                phone: '01000000000'
+            },
+            {
+                id: '100120',
+                name: '더미20',
+                company: '회사명 더미20',
+                phone: '01000000000'
+            },
+        ];
+    </script>
     <!-- custom style -->
     <style>
         main {
@@ -86,8 +208,149 @@
         <section class="container-xl flex-fill bg-white pt-5">
             <article class="d-flex flex-column h-100">
                 <!-- 내용 시작 -->
+                <div class="row" style="height: 50vh;">
+                    <div class="col-12">
+                        <div id="grid" class="rounded"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+
+                    </div>
+                </div>
             </article>
         </section>
+        <script type="text/javascript">
+            class CustomCheckBox {
+                constructor(props) {
+                    const {
+                        grid,
+                        rowKey
+                    } = props;
+
+                    const label = document.createElement('label');
+                    label.classList.add('checkbox');
+                    label.setAttribute('for', String(rowKey));
+
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.className = 'hidden-input';
+                    hiddenInput.id = String(rowKey);
+
+                    const customInput = document.createElement('span');
+                    customInput.className = 'custom-input';
+
+                    label.appendChild(hiddenInput);
+                    label.appendChild(customInput);
+
+                    hiddenInput.type = 'checkbox';
+                    hiddenInput.addEventListener('change', () => {
+                        if (hiddenInput.checked) {
+                            grid.check(rowKey);
+                        } else {
+                            grid.uncheck(rowKey);
+                        }
+                    });
+
+                    this.el = label;
+                    this.render(props);
+                }
+
+                getElement() {
+                    return this.el;
+                }
+
+                render(props) {
+                    const hiddenInput = this.el.querySelector('.hidden-input');
+                    const checked = Boolean(props.value);
+
+                    hiddenInput.checked = checked;
+                }
+            }
+
+            const Grid = tui.Grid;
+            Grid.applyTheme('clean', {
+                outline: {
+                    border: '#eee'
+                },
+                // selection: {
+                //     background: '#fff',
+                //     border: '#fff'
+                // },
+                scrollbar: {
+                    border: '#eee',
+                    background: '#fff',
+                    emptySpace: '#fff',
+                },
+                area: {
+                    header: {
+                        background: '#fff',
+                        border: '#eee',
+                    }
+                },
+                row: {
+                    hover: {
+                        background: '#e5f6ff',
+                    }
+                },
+                cell: {
+                    header: {
+                        background: '#fff',
+                        border: '#eee',
+                        showVerticalBorder: true,
+                        showHorizontalBorder: false,
+                    },
+                    // selectedHeader: {
+                    //     background: '#eee',
+                    // },
+                    // selectedRowHeader: {
+                    //     background: '#eee',
+                    // },
+                    // focused: {
+                    //     background: '#eee',
+                    //     border: '#eee',
+                    // },
+                    // focusedInactive: {
+                    //     border: '#eee',
+                    // }
+                }
+            });
+            const grid = new Grid({
+                el: document.querySelector('#grid'),
+                scrollX: true,
+                scrollY: true,
+                bodyHeight: 'fitToParent',
+                rowHeaders: [{
+                    type: 'checkbox',
+                    renderer: {
+                        type: CustomCheckBox
+                    }
+                }],
+                columns: [{
+                        header: '회사명',
+                        name: 'company',
+                        align: 'center',
+                        filter: 'select',
+                    },
+                    {
+                        header: '이름',
+                        name: 'name',
+                        align: 'center',
+                        filter: 'text',
+                    },
+                    {
+                        header: '연락처',
+                        name: 'phone',
+                        align: 'center',
+                        filter: 'text',
+                    },
+                ],
+                data: data,
+                // pageOptions: {
+                //     useClient: true,
+                //     perPage: 5
+                // },
+            });
+        </script>
     </main>
     <footer class="d-flex flex-column">
         <section class="d-flex flex-row bg-dark text-light">
